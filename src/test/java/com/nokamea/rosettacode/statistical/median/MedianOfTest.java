@@ -16,7 +16,7 @@ class MedianOfTest {
     @Test
     void integers() {
         assertThrows(NullPointerException.class, () -> MedianOf.integers(null));
-        assertEquals(0, MedianOf.integers(Collections.emptyList()));
+        assertThrows(IllegalArgumentException.class, () -> MedianOf.integers(Collections.emptyList()));
 
         for (int a = -5; a <= 5; a++) {
             assertEquals(a, MedianOf.integers(List.of(a)));
@@ -49,7 +49,7 @@ class MedianOfTest {
     @Test
     void integersAsFloat() {
         assertThrows(NullPointerException.class, () -> MedianOf.integersAsFloat(null));
-        assertEquals(0, MedianOf.integersAsFloat(Collections.emptyList()));
+        assertThrows(IllegalArgumentException.class, () -> MedianOf.integersAsFloat(Collections.emptyList()));
 
         for (int a = -5; a <= 5; a++) {
             assertEquals(a, MedianOf.integersAsFloat(List.of(a)));
@@ -82,7 +82,7 @@ class MedianOfTest {
     @Test
     void integersAsDouble() {
         assertThrows(NullPointerException.class, () -> MedianOf.integersAsDouble(null));
-        assertEquals(0, MedianOf.integersAsDouble(Collections.emptyList()));
+        assertThrows(IllegalArgumentException.class, () -> MedianOf.integersAsDouble(Collections.emptyList()));
 
         for (int a = -5; a <= 5; a++) {
             assertEquals(a, MedianOf.integersAsDouble(List.of(a)));
@@ -115,7 +115,7 @@ class MedianOfTest {
     @Test
     void floats() {
         assertThrows(NullPointerException.class, () -> MedianOf.floats(null));
-        assertEquals(0, MedianOf.floats(Collections.emptyList()));
+        assertThrows(IllegalArgumentException.class, () -> MedianOf.floats(Collections.emptyList()));
 
         for (float a = -5; a <= 5; a += 0.4f) {
             assertEquals(a, MedianOf.floats(List.of(a)));
@@ -148,7 +148,7 @@ class MedianOfTest {
     @Test
     void doubles() {
         assertThrows(NullPointerException.class, () -> MedianOf.doubles(null));
-        assertEquals(0, MedianOf.doubles(Collections.emptyList()));
+        assertThrows(IllegalArgumentException.class, () -> MedianOf.doubles(Collections.emptyList()));
 
         for (double a = -5; a <= 5; a += 0.4d) {
             assertEquals(a, MedianOf.doubles(List.of(a)));
@@ -181,7 +181,7 @@ class MedianOfTest {
     @Test
     void bigIntegers() {
         assertThrows(NullPointerException.class, () -> MedianOf.bigIntegers(null));
-        assertEquals(BigInteger.ZERO, MedianOf.bigIntegers(Collections.emptyList()));
+        assertThrows(IllegalArgumentException.class, () -> MedianOf.bigIntegers(Collections.emptyList()));
 
         for (BigInteger a = BigInteger.valueOf(-5); a.compareTo(BigInteger.valueOf(5)) <= 0; a = a.add(BigInteger.ONE)) {
             assertEquals(a.intValue(), MedianOf.bigIntegers(List.of(a)).intValue());
@@ -214,7 +214,7 @@ class MedianOfTest {
     @Test
     void bigIntegersAsBigDecimal() {
         assertThrows(NullPointerException.class, () -> MedianOf.bigIntegersAsBigDecimal(null));
-        assertEquals(BigDecimal.ZERO, MedianOf.bigIntegersAsBigDecimal(Collections.emptyList()));
+        assertThrows(IllegalArgumentException.class, () -> MedianOf.bigIntegersAsBigDecimal(Collections.emptyList()));
 
         for (int aa = -5; aa <= 5; aa++) {
             final BigInteger a = BigInteger.valueOf(aa);
@@ -257,7 +257,7 @@ class MedianOfTest {
     @Test
     void bigDecimals() {
         assertThrows(NullPointerException.class, () -> MedianOf.bigDecimals(null));
-        assertEquals(BigDecimal.ZERO, MedianOf.bigDecimals(Collections.emptyList()));
+        assertThrows(IllegalArgumentException.class, () -> MedianOf.bigDecimals(Collections.emptyList()));
 
         for (float a = -5; a <= 5; a += 0.4d) {
             final BigDecimal ba = BigDecimal.valueOf(a);

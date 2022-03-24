@@ -35,20 +35,15 @@ import java.util.function.Supplier;
 @SuppressWarnings("ClassCanBeRecord")
 class MedianFinderImpl<T, R> implements MedianFinder<T, R> {
 
-    private final Supplier<R> ifEmpty;
     private final Function<T, R> ifOdd;
     private final Function<List<T>, R> ifEven;
 
     /**
-     * @param ifEmpty A {@link java.util.function.Supplier Supplier} to return the median of zero elements.
      * @param ifOdd   A {@link java.util.function.Function Function} to return the median of a single element.
      * @param ifEven  A {@link java.util.function.Function Function} to return the median of a
      *                {@link java.util.List List} containing two elements.
      */
-    MedianFinderImpl(Supplier<R> ifEmpty,
-                            Function<T, R> ifOdd,
-                            Function<List<T>, R> ifEven) {
-        this.ifEmpty = ifEmpty;
+    MedianFinderImpl(Function<T, R> ifOdd, Function<List<T>, R> ifEven) {
         this.ifOdd = ifOdd;
         this.ifEven = ifEven;
     }
@@ -64,12 +59,13 @@ class MedianFinderImpl<T, R> implements MedianFinder<T, R> {
      */
     @Override
     public R apply(Collection<T> data) {
+        if (Objects.requireNonNull(data, "data must not be null").isEmpty()) {
+            throw new IllegalArgumentException("The median of an empty set is undefined. Data must not be zero-length.");
+        }
 
         //noinspection OptionalGetWithoutIsPresent
-        return Objects.requireNonNull(data, "data must not be null").isEmpty()
-                ? ifEmpty.get()
-                : (data.size() & 1) == 0
-                    ? ifEven.apply(data.stream().sorted().skip(data.size() / 2 - 1).limit(2).toList())
-                    : ifOdd.apply(data.stream().sorted().skip(data.size() / 2).limit(1).findFirst().get());
+        return (data.size() & 1) == 0
+                ? ifEven.apply(data.stream().sorted().skip(data.size() / 2 - 1).limit(2).toList())
+                : ifOdd.apply(data.stream().sorted().skip(data.size() / 2).limit(1).findFirst().get());
     }
 }
