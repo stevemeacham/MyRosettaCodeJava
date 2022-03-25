@@ -50,11 +50,21 @@ public class MeanOf {
         return Objects.requireNonNull(c).stream().reduce(BigInteger.ZERO, BigInteger::add).divide(BigInteger.valueOf(c.size()));
     }
 
+    @SuppressWarnings("BigDecimalMethodWithoutRoundingCalled")
     public static BigDecimal bigIntegersAsBigDecimal(Collection<BigInteger> c) {
-        return new BigDecimal(Objects.requireNonNull(c).stream().reduce(BigInteger.ZERO, BigInteger::add)).divide(BigDecimal.valueOf(c.size()), RoundingMode.FLOOR);
+        return new BigDecimal(Objects.requireNonNull(c).stream().reduce(BigInteger.ZERO, BigInteger::add)).divide(BigDecimal.valueOf(c.size()));
     }
 
+    public static BigDecimal bigIntegersAsBigDecimal(Collection<BigInteger> c, int scale, RoundingMode roundingMode) {
+        return new BigDecimal(Objects.requireNonNull(c).stream().reduce(BigInteger.ZERO, BigInteger::add)).divide(BigDecimal.valueOf(c.size()), scale, roundingMode);
+    }
+
+    @SuppressWarnings("BigDecimalMethodWithoutRoundingCalled")
     public static BigDecimal bigDecimals(Collection<BigDecimal> c) {
-        return Objects.requireNonNull(c).stream().reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(c.size()), RoundingMode.FLOOR);
+        return Objects.requireNonNull(c).stream().reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(c.size()));
+    }
+
+    public static BigDecimal bigDecimals(Collection<BigDecimal> c, int scale, RoundingMode roundingMode) {
+        return Objects.requireNonNull(c).stream().reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(c.size()), scale, roundingMode);
     }
 }
