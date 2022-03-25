@@ -1,4 +1,11 @@
 ###
+# Project
+###
+
+/target/
+
+
+###
 # MacOS
 ###
 
